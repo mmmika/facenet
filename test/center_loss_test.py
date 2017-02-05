@@ -41,7 +41,7 @@ class CenterLossTest(unittest.TestCase):
             labels = tf.placeholder(tf.int32, shape=(batch_size,), name='labels')
 
             # Define center loss
-            center_loss, centers = facenet.center_loss_new(features, labels, alfa, nrof_classes)
+            center_loss, centers = facenet.center_loss(features, labels, alfa, nrof_classes)
             
             label_to_center = np.array( [ 
                  [-3,-3],  [-3,-1],  [-3,1],  [-3,3],
@@ -52,7 +52,7 @@ class CenterLossTest(unittest.TestCase):
                 
             sess = tf.Session()
             with sess.as_default():
-                sess.run(tf.initialize_all_variables())
+                sess.run(tf.global_variables_initializer())
                 np.random.seed(seed=666)
                 
                 for _ in range(0,100):
